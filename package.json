@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.14",
+    "tailwindcss": "^4.0.14"
+  },
+  "scripts": {
+    "test": "echo \"Erro: no test specifed\" && exit 1",
+    "run" : "tailwindcss -i ./src/input.css -o ./dist/style.css --watch"
+  }
+}

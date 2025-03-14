@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Calculadora de Dano</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-md bg-gray-800 rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-center mb-6">Calculadora de Dano</h1>
+        <form id="damageForm" class="space-y-4">
+            <div>
+                <label for="level" class="block text-sm font-medium">Level</label>
+                <input type="number" id="level" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" required>
+            </div>
+            <div>
+                <label for="atkPower" class="block text-sm font-medium">Atk Power</label>
+                <input type="number" id="atkPower" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" required>
+            </div>
+            <div>
+                <label for="atkStats" class="block text-sm font-medium">Atk Stats</label>
+                <input type="number" id="atkStats" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" required>
+            </div>
+            <div>
+                <label for="defStats" class="block text-sm font-medium">Def Stats</label>
+                <input type="number" id="defStats" value="50" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" required>
+            </div>
+            <div>
+                <label for="stab" class="block text-sm font-medium">STAB</label>
+                <select id="stab" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" required>
+                    <option value="1">Falso</option>
+                    <option value="1.5">Verdadeiro</option>
+                </select>
+            </div>
+            <div>
+                <label for="crit" class="block text-sm font-medium">Crit</label>
+                <select id="crit" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" required>
+                    <option value="1">Falso</option>
+                    <option value="2">Verdadeiro</option>
+                </select>
+            </div>
+            <div>
+                <label for="superEffective" class="block text-sm font-medium">Super Effective</label>
+                <select id="superEffective" class="w-full p-2 bg-gray-700 border border-gray-600 rounded-lg text-white" required>
+                    <option value="1">Falso</option>
+                    <option value="2">Verdadeiro</option>
+                </select>
+            </div>
+            <button type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg" onclick="calcularDano()">Calcular</button>
+        </form>
+        <div class="mt-6 p-4 bg-gray-700 border border-gray-600 rounded-lg text-center">
+            <h3 class="text-lg">Resultado: <span id="resultado" class="font-bold"></span></h3>
+        </div>
+    </div>
+
+    <script>
+        function calcularDano() {
+            const level = parseInt(document.getElementById('level').value);
+            const atkPower = parseInt(document.getElementById('atkPower').value);
+            const atkStats = parseInt(document.getElementById('atkStats').value);
+            const defStats = parseInt(document.getElementById('defStats').value);
+            const stab = parseFloat(document.getElementById('stab').value);
+            const crit = parseFloat(document.getElementById('crit').value);
+            const superEffective = parseFloat(document.getElementById('superEffective').value);
+
+            if (isNaN(level) || isNaN(atkPower) || isNaN(atkStats) || isNaN(defStats) || isNaN(stab) || isNaN(crit) || isNaN(superEffective)) {
+                alert("Preencha todos os campos corretamente!");
+                return;
+            }
+
+            const damage = ((((2 * level / 5 + 2) * atkStats * atkPower / defStats) / 50) + 2)* stab * superEffective *crit;
+            document.getElementById('resultado').textContent = Math.floor(damage);
+        }
+    </script>
+</body>
+</html>
